@@ -7,11 +7,12 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
     <div class="well hoverwell thumbnail">
     <h2 *ngIf = "event.name">{{event?.name}}</h2>
     <div *ngIf = "event.date">date: {{event?.date}}</div>
-    <div [ngClass]="{green: event?.time == '8:00 am',bold:event?.time=='8:00 am'}"
-    [ngSwitch]="event?.time">Time: {{event?.time}}
-    <span *ngSwitch="'8:00 am'">(early start)</span>
-    <span *ngSwitch="'10:00 am'">(late start)</span>
-    <span *ngSwitchDefault>(normal start)</span>
+    <div
+      [ngClass]="getStartTimeClass()"
+      [ngSwitch]="event?.time">Time:{{event?.time}}
+      <span *ngSwitch="'8:00 am'">(early start)</span>
+      <span *ngSwitch="'10:00 am'">(late start)</span>
+      <span *ngSwitchDefault>(normal start)</span>
     </div>
     <div *ngIf = "event.name">time:{{event?.time}}</div>
     <div *ngIf = "event.price">price: \${{event?.price}}</div>
@@ -25,6 +26,8 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
     </div>
   `,
   styles: [`
+    .green { color : #003000 !important; }
+    .bold { font-weight:bold; }
     .thumbnail { min-height: 210px; }
     .pad-left { margin-left: 10px; }
     .well div { color: #bbb; }
@@ -38,6 +41,13 @@ export class EventThumbnailComponent {
 
   handleClickMe() {
     this.eventClick.emit(this.event.name)
+  }
+
+  getStartTimeClass() {
+    const isEarlyStart = this.event && this.event.time == '8:00 am'
+    console.log(isEarlyStart)
+    console.log(this.event)
+    return {green: isEarlyStart, bold: isEarlyStart}
   }
 }
 
