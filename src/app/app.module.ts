@@ -8,6 +8,7 @@ import { EventDetailsComponent } from './events/event-details.component';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes';
 import { EventService } from './shared/event-service'
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -25,7 +26,4 @@ import { EventService } from './shared/event-service'
 })
 export class AppEventsModule {
 
-
-
 }
-
